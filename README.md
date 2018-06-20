@@ -4,7 +4,7 @@
 
 ## Install
 ```
-npm install --save vue-pdf
+npm install --save pdfvuer
 ```
 
 ## Example - basic
