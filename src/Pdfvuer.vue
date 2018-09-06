@@ -1,7 +1,7 @@
 <template>
 	<div id="viewerContainer" ref="container">
 		<div id="viewer" class="pdfViewer"></div>
-		<resizeSensor :initial="true" />
+		<resizeSensor :initial="true"/>
 	</div>
 </template>
 <script>
