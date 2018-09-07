@@ -1,20 +1,17 @@
 {
-  "name": "pdfvuer",
-  "description": "A PDF viewer for Vue using Mozilla's PDF.js",
-  "version": "1.0.2",
+  "name": "pdfvuer-sample",
+  "description": "A Vue.js project",
+  "version": "1.0.0",
   "author": "Gaurav Koley <arkokoley@live.in>",
   "license": "MIT",
-  "main": "./src/Pdfvuer.vue",
+  "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
-    "build-bundle": "vue-cli-service build --target lib --name pdfvuer ./src/App.vue"
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
-    "babel-plugin-syntax-dynamic-import": "^6.18.0",
-    "pdfjs-dist": "^2.0.489",
-    "raw-loader": "^0.5.1",
-    "vue-resize-sensor": "^2.0.0"
+    "pdfvuer": "^1.0.2",
+    "vue": "^2.5.11"
   },
   "browserslist": [
     "> 1%",
