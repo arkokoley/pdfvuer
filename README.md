@@ -165,6 +165,9 @@ The total number of pages of the pdf.
   This function creates a PDFJS loading task that can be used and reused as `:src` property.  
 
 ## Public Demo
+
+Advanced Example - [https://blog.koley.in/pdfvuer](https://blog.koley.in/pdfvuer)
+
 [Used in production by Gratiato](https://goodwill.zense.co.in/resources/1)
 
 > Made with :heart: at [IIIT Bangalore](http://iiitb.ac.in)
