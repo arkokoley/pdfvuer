@@ -53,7 +53,7 @@ export default {
   methods: {
     getPdf () {
       var self = this;
-      self.pdfdata = pdfvuer.createLoadingTask('https://cdn.mozilla.net/pdfjs/tracemonkey.pdf');
+      self.pdfdata = pdfvuer.createLoadingTask('nationStates.pdf');
       self.pdfdata.then(pdf => {
         self.numPages = pdf.numPages;
         window.onscroll = function() { 
