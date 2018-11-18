@@ -68,6 +68,7 @@ export default {
 	},
 	data() {
 		return {
+			internalSrc: this.src,
 			pdf: null,
 			pdfViewer: null
 		}
@@ -93,7 +94,8 @@ export default {
 	},
 	watch: {
 		pdf: function(val) {
-      this.$emit('numpages', val.pdfInfo.numPages);
+			var pdfInfo = val.pdfInfo || val._pdfInfo
+      		this.$emit('numpages', pdfInfo.numPages);
 		},
 		page: function(val) {
 			var self = this;
@@ -102,7 +104,9 @@ export default {
 				self.pdfViewer.draw();
 			});
 		},
-    scale: this.drawScaled,
+    	scale: function(val) {
+			this.drawScaled(val)
+		},
 		rotate: function(newRotate) {
 			if (this.pdfViewer) {
 				this.pdfViewer.update(this.scale,newRotate);
@@ -126,8 +130,8 @@ export default {
 	// doc: mounted hook is not called during server-side rendering.
 	mounted: function() {
 		var self = this;
-		if(!isPDFDocumentLoadingTask(self.src)){
-				self.src = createLoadingTask(self.src);
+		if(!isPDFDocumentLoadingTask(self.internalSrc)){
+				self.internalSrc = createLoadingTask(self.internalSrc);
 		}
 
 		var SEARCH_FOR = 'Mozilla'; // try 'Mozilla';
@@ -156,7 +160,7 @@ export default {
 		//   }
 		// });
 		//
-		self.src
+		self.internalSrc
 		.then(function(pdfDocument) {
 		  // Document loaded, retrieving the page.
 			self.pdf = pdfDocument;
