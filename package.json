@@ -1,14 +1,14 @@
 {
   "name": "pdfvuer",
   "description": "A PDF viewer for Vue using Mozilla's PDF.js",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": "Gaurav Koley <arkokoley@live.in>",
   "license": "MIT",
   "main": "./src/Pdfvuer.vue",
   "homepage": "https://github.com/arkokoley/pdfvuer#pdfvuer",
-  "bugs": { 
-    "url" : "https://github.com/arkokoley/pdfvuer/issues",
-    "email" : "arkokoley@live.in"
+  "bugs": {
+    "url": "https://github.com/arkokoley/pdfvuer/issues",
+    "email": "arkokoley@live.in"
   },
   "repository": "github:arkokoley/pdfvuer",
   "scripts": {
