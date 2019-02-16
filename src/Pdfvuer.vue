@@ -1,7 +1,10 @@
 <template>
-	<div id="viewerContainer" ref="container">
-		<div id="viewer" class="pdfViewer"></div>
-		<resizeSensor :initial="true"/>
+	<div>
+		<slot v-if="loading" name="loading"/>
+		<div id="viewerContainer" ref="container">
+			<div id="viewer" class="pdfViewer"></div>
+			<resizeSensor :initial="true"/>
+		</div>
 	</div>
 </template>
 <script>
@@ -70,7 +73,8 @@ export default {
 		return {
 			internalSrc: this.src,
 			pdf: null,
-			pdfViewer: null
+			pdfViewer: null,
+			loading: true
 		}
 	},
 	props: {
@@ -124,6 +128,7 @@ export default {
         newScale = newScale === 'page-width' ? pageWidthScale : newScale;
 				this.pdfViewer.update(newScale,this.rotate);
 				this.pdfViewer.draw();
+				this.loading = false;
 			}
 		}
   },
