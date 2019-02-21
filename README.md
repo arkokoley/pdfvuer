@@ -10,7 +10,11 @@ npm install --save pdfvuer
 ## Example - basic
 ```vue
 <template>
-  <pdf src="./static/relativity.pdf" :page=1></pdf>
+  <pdf src="./static/relativity.pdf" :page="1">
+    <template slot="loading">
+      loading content here...
+    </template>
+  </pdf>
 </template>
 
 <script>
@@ -42,7 +46,11 @@ export default {
       </a>
     </div>
     <pdf :src="pdfdata" v-for="i in numPages" :key="i" :id="i" :page="i"
-      :scale="scale" style="width:100%;margin:20px auto;"></pdf>
+      :scale="scale" style="width:100%;margin:20px auto;">
+      <template slot="loading">
+        loading content here...
+      </template>
+    </pdf>
   </div>
 </template>
 
@@ -168,7 +176,7 @@ The total number of pages of the pdf.
 
 Advanced Example - [https://blog.koley.in/pdfvuer](https://blog.koley.in/pdfvuer)
 
-[Used in production by Gratiato](https://goodwill.zense.co.in/resources/1)
+[Used in production by  Gratia](https://goodwill.zense.co.in/resources/1)
 
 > Made with :heart: at [IIIT Bangalore](http://iiitb.ac.in)
 
