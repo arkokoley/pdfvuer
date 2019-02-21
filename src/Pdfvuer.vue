@@ -183,7 +183,7 @@ export default {
 	    });
 	    // Associates the actual page with the view, and drawing it
 	    self.pdfViewer.setPdfPage(pdfPage);
-      self.drawScaled("page-width");
+      self.drawScaled(self.scale);
     })
   },
 }
