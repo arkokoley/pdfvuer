@@ -3,7 +3,7 @@
 		<slot v-if="loading" name="loading"/>
 		<div id="viewerContainer" ref="container">
 			<div id="viewer" class="pdfViewer"></div>
-			<resizeSensor :initial="true"/>
+			<resizeSensor :initial="true" @resize="resizeScale"/>
 		</div>
 	</div>
 </template>
@@ -74,7 +74,7 @@ export default {
 			internalSrc: this.src,
 			pdf: null,
 			pdfViewer: null,
-			loading: true
+			loading: true,
 		}
 	},
 	props: {
@@ -94,7 +94,10 @@ export default {
 			type: [Number, String],
 			default: 1,
 		},
-
+		resize: {
+			type: Boolean,
+			default: false,
+		},
 	},
 	watch: {
 		pdf: function(val) {
@@ -108,27 +111,40 @@ export default {
 				self.pdfViewer.draw();
 			});
 		},
-    	scale: function(val) {
-			this.drawScaled(val)
+    scale: function(val) {
+			this.drawScaled(val);
 		},
 		rotate: function(newRotate) {
 			if (this.pdfViewer) {
 				this.pdfViewer.update(this.scale,newRotate);
 				this.pdfViewer.draw();
 			}
-		}
+		},
 	},
   methods: {
+		calculateScale: function(width=-1, height=-1) {
+			this.pdfViewer.update(1,this.rotate); // Reset scaling to 1 so that "this.pdfViewer.viewport.width" gives proper width;
+			if(width === -1 && height === -1){
+				width = this.$refs.container.offsetWidth;
+				height = this.$refs.container.height;
+			}
+			let pageWidthScale = width / this.pdfViewer.viewport.width * 1;
+			let pageHeightScale = height / this.pdfViewer.viewport.height * 1;
+			return pageWidthScale;
+		},
 		drawScaled: function(newScale) {
 			if (this.pdfViewer) {
-        let pageWidthScale = (this.$refs.container.offsetWidth) /
-                              this.pdfViewer.viewport.width * 1;
-        let pageHeightScale = (this.$refs.container.height) /
-                              this.pdfViewer.viewport.height * 1;
-        newScale = newScale === 'page-width' ? pageWidthScale : newScale;
+				if(newScale === 'page-width') {
+					newScale = this.calculateScale();
+				}
 				this.pdfViewer.update(newScale,this.rotate);
 				this.pdfViewer.draw();
 				this.loading = false;
+			}
+		},
+		resizeScale: function(size) {
+			if(this.resize) {
+				this.drawScaled('page-width');
 			}
 		}
   },
@@ -180,11 +196,12 @@ export default {
 	      // We can enable text/annotations layers, if needed
 	      textLayerFactory: new DefaultTextLayerFactory(),
 	      //annotationLayerFactory: new DefaultAnnotationLayerFactory(),
-	    });
+			});
 	    // Associates the actual page with the view, and drawing it
-	    self.pdfViewer.setPdfPage(pdfPage);
+			self.pdfViewer.setPdfPage(pdfPage);
+			pdfLinkService.setViewer(self.pdfViewer);
       self.drawScaled(self.scale);
     })
-  },
+	},
 }
 </script>
