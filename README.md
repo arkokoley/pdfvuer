@@ -169,6 +169,9 @@ Enable Auto Resizing on window resize. By default, autoresizing is disabled.
 #### @numpages <sup>Number<sup>
 The total number of pages of the pdf.
 
+#### @loading <sup>Boolean<sup>
+The provided PDF's loading state
+
 ### Public static methods
 
 #### createLoadingTask(src)
