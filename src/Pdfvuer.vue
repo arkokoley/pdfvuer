@@ -140,6 +140,7 @@ export default {
 				this.pdfViewer.update(newScale,this.rotate);
 				this.pdfViewer.draw();
 				this.loading = false;
+				this.$emit('loading', false);
 			}
 		},
 		resizeScale: function(size) {
@@ -153,6 +154,7 @@ export default {
 		var self = this;
 		if(!isPDFDocumentLoadingTask(self.internalSrc)){
 				self.internalSrc = createLoadingTask(self.internalSrc);
+        self.$emit('loading', true);
 		}
 
 		var SEARCH_FOR = 'Mozilla'; // try 'Mozilla';
