@@ -98,6 +98,10 @@ export default {
 			type: Boolean,
 			default: false,
 		},
+		annotation: {
+			type: Boolean,
+			default: false,
+		},
 	},
 	watch: {
 		pdf: function(val) {
@@ -183,6 +187,10 @@ export default {
 		//   }
 		// });
 		//
+		let annotationLayer = undefined;
+		if(self.annotation){
+			annotationLayer = new DefaultAnnotationLayerFactory();
+		}
 		self.internalSrc
 		.then(function(pdfDocument) {
 		  // Document loaded, retrieving the page.
@@ -197,7 +205,7 @@ export default {
 	      defaultViewport: pdfPage.getViewport(1),
 	      // We can enable text/annotations layers, if needed
 	      textLayerFactory: new DefaultTextLayerFactory(),
-	      //annotationLayerFactory: new DefaultAnnotationLayerFactory(),
+	      annotationLayerFactory: annotationLayer,
 			});
 	    // Associates the actual page with the view, and drawing it
 			self.pdfViewer.setPdfPage(pdfPage);
