@@ -102,6 +102,10 @@ export default {
 			type: Boolean,
 			default: false,
 		},
+		text: {
+			type: Boolean,
+			default: true,
+		},
 	},
 	watch: {
 		pdf: function(val) {
@@ -187,10 +191,14 @@ export default {
 		//   }
 		// });
 		//
-		let annotationLayer = undefined;
+		let annotationLayer = undefined, textLayer = undefined;
 		if(self.annotation){
 			annotationLayer = new DefaultAnnotationLayerFactory();
 		}
+		if(self.text){
+			textLayer = new DefaultTextLayerFactory();
+		}
+
 		self.internalSrc
 		.then(function(pdfDocument) {
 		  // Document loaded, retrieving the page.
@@ -204,7 +212,7 @@ export default {
 	      scale: 1,
 	      defaultViewport: pdfPage.getViewport(1),
 	      // We can enable text/annotations layers, if needed
-	      textLayerFactory: new DefaultTextLayerFactory(),
+	      textLayerFactory: textLayer,
 	      annotationLayerFactory: annotationLayer,
 			});
 	    // Associates the actual page with the view, and drawing it
