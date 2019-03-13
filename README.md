@@ -164,6 +164,12 @@ with the container width.
 #### :resize <sup>Boolean - default: false</sup>
 Enable Auto Resizing on window resize. By default, autoresizing is disabled.
 
+#### :annotation <sup>Boolean - default: false</sup>
+Show the annotations in the pdf. By default, annotation layer is disabled.
+
+#### :text <sup>Boolean - default: true</sup>
+Show the text layer in the pdf. By default, text layer is enabled.
+
 ### Events
 
 #### @numpages <sup>Number<sup>
