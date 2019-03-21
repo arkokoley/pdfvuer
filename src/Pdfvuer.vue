@@ -3,7 +3,6 @@
 		<slot v-if="loading" name="loading"/>
 		<div id="viewerContainer" ref="container">
 			<div id="viewer" class="pdfViewer"></div>
-			<resizeSensor :initial="true" @resize="resizeScale"/>
 		</div>
 	</div>
 </template>
@@ -13,7 +12,6 @@
 import 'pdfjs-dist/web/pdf_viewer.css';
 import pdfjsLib from 'pdfjs-dist/webpack.js';
 import {PDFLinkService, PDFPageView, PDFFindController, DefaultAnnotationLayerFactory, DefaultTextLayerFactory } from 'pdfjs-dist/web/pdf_viewer.js';
-import resizeSensor from 'vue-resize-sensor'
 
 const DEFAULT_SCALE_DELTA = 1.1;
 const MIN_SCALE = 0.25;
@@ -66,16 +64,13 @@ function createLoadingTask(src, options) {
 
 export default {
 	createLoadingTask: createLoadingTask,
-	components: {
-		resizeSensor
-	},
 	data() {
 		return {
 			internalSrc: this.src,
 			pdf: null,
 			pdfViewer: null,
 			loading: true,
-		}
+		};
 	},
 	props: {
 		src: {
@@ -119,8 +114,8 @@ export default {
 				self.pdfViewer.draw();
 			});
 		},
-    scale: function(val) {
-			this.drawScaled(val);
+    scale: function() {
+			this.redraw();
 		},
 		rotate: function(newRotate) {
 			if (this.pdfViewer) {
@@ -134,28 +129,23 @@ export default {
 			this.pdfViewer.update(1,this.rotate); // Reset scaling to 1 so that "this.pdfViewer.viewport.width" gives proper width;
 			if(width === -1 && height === -1){
 				width = this.$refs.container.offsetWidth;
-				height = this.$refs.container.height;
+				height = this.$refs.container.offsetHeight;
 			}
 			let pageWidthScale = width / this.pdfViewer.viewport.width * 1;
 			let pageHeightScale = height / this.pdfViewer.viewport.height * 1;
 			return pageWidthScale;
 		},
-		drawScaled: function(newScale) {
+		redraw: function() {
 			if (this.pdfViewer) {
-				if(newScale === 'page-width') {
-					newScale = this.calculateScale();
-				}
-				this.pdfViewer.update(newScale,this.rotate);
+				const scale = this.scale === 'page-width'
+					? this.calculateScale()
+					: this.scale;
+				this.pdfViewer.update(scale, this.rotate);
 				this.pdfViewer.draw();
 				this.loading = false;
 				this.$emit('loading', false);
 			}
 		},
-		resizeScale: function(size) {
-			if(this.resize) {
-				this.drawScaled('page-width');
-			}
-		}
   },
 	// doc: mounted hook is not called during server-side rendering.
 	mounted: function() {
@@ -218,7 +208,7 @@ export default {
 	    // Associates the actual page with the view, and drawing it
 			self.pdfViewer.setPdfPage(pdfPage);
 			pdfLinkService.setViewer(self.pdfViewer);
-      self.drawScaled(self.scale);
+      self.redraw();
     })
 	},
 }

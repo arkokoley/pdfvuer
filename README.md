@@ -161,9 +161,6 @@ The page rotation in degrees, only multiple of 90 are valid.
 The scaling factor. By default, the pdf will be scaled to match the page width
 with the container width.
 
-#### :resize <sup>Boolean - default: false</sup>
-Enable Auto Resizing on window resize. By default, autoresizing is disabled.
-
 #### :annotation <sup>Boolean - default: false</sup>
 Show the annotations in the pdf. By default, annotation layer is disabled.
 
