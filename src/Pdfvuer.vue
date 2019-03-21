@@ -89,10 +89,6 @@ export default {
 			type: [Number, String],
 			default: 'page-width',
 		},
-		resize: {
-			type: Boolean,
-			default: false,
-		},
 		annotation: {
 			type: Boolean,
 			default: false,
