@@ -89,10 +89,6 @@ export default {
 			type: [Number, String],
 			default: 1,
 		},
-		resize: {
-			type: Boolean,
-			default: false,
-		},
 		annotation: {
 			type: Boolean,
 			default: false,
