@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<slot v-if="loading" name="loading"/>
-		<div id="viewerContainer" ref="container">
+		<div class="viewerContainer" ref="container">
 			<div id="viewer" class="pdfViewer"></div>
 		</div>
 	</div>
@@ -209,3 +209,8 @@ export default {
 	},
 }
 </script>
+<style>
+	.viewerContainer {
+		position: relative;
+	}
+</style>
