@@ -144,6 +144,7 @@ export default {
 			if (this.pdfViewer) {
 				if(newScale === 'page-width') {
 					newScale = this.calculateScale();
+					this.$emit("update:scale", newScale);
 				}
 				this.pdfViewer.update(newScale,this.rotate);
 				this.pdfViewer.draw();
