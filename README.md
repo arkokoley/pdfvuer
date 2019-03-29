@@ -45,8 +45,21 @@ export default {
         <i class="right chevron icon"></i>
       </a>
     </div>
+    <div id="buttons" class="ui grey three item inverted bottom fixed menu transition hidden">
+      <a class="item" @click="scale -= scale > 0.2 ? 0.1 : 0">
+        <i class="left chevron icon" />
+          Zoom -
+      </a>
+      <a class="ui active item">
+        {{ formattedZoom }} %
+      </a>
+      <a class="item" @click="scale += scale < 2 ? 0.1 : 0">
+        Zoom +
+        <i class="right chevron icon" />
+      </a>
+    </div>
     <pdf :src="pdfdata" v-for="i in numPages" :key="i" :id="i" :page="i"
-      :scale="scale" style="width:100%;margin:20px auto;">
+      :scale.sync="scale" style="width:100%;margin:20px auto;">
       <template slot="loading">
         loading content here...
       </template>
@@ -69,6 +82,11 @@ export default {
       errors: [],
       scale: 'page-width'
     }
+  },
+  computed: {
+    formattedZoom () {
+        return Number.parseInt(this.scale * 100);
+    },
   },
   mounted () {
     this.getPdf()
@@ -157,9 +175,11 @@ The page number to display.
 #### :rotate <sup>Number - default: 0<sup>
 The page rotation in degrees, only multiple of 90 are valid.
 
-#### :scale <sup>Number / String - default: 'page-width'</sup>
+#### :scale <sup>Number / String - default: 'page-width' - .sync</sup>
 The scaling factor. By default, the pdf will be scaled to match the page width
 with the container width.
+When passed value `page-width` and / or using `resize` prop, will send back the scale
+computed accordingly via `update:scale` event (use it with `scale.sync="scale"`)
 
 #### :resize <sup>Boolean - default: false</sup>
 Enable Auto Resizing on window resize. By default, autoresizing is disabled.
