@@ -45,7 +45,7 @@ function createLoadingTask(src, options) {
 
 				return {
 					cMapData: bcmap,
-					compressionType: CMapCompressionType.BINARY,
+					compressionType: pdfjsLib.CMapCompressionType.BINARY,
 				};
 			});
 		}
