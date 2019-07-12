@@ -198,6 +198,9 @@ The total number of pages of the pdf.
 #### @loading <sup>Boolean<sup>
 The provided PDF's loading state
 
+#### @error <sup>Function<sup>
+Function handler for errors occurred during loading/drawing PDF source.
+
 ### Public static methods
 
 #### createLoadingTask(src)
