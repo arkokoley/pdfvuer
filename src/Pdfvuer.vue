@@ -220,7 +220,7 @@ export default {
 			self.pdfViewer.setPdfPage(pdfPage);
 			pdfLinkService.setViewer(self.pdfViewer);
       self.drawScaled(self.scale);
-    })
-	},
+    }).catch(err => self.$emit('error', err))
+	}
 }
 </script>
