@@ -211,7 +211,7 @@ export default {
 	      container: container,
 	      id: self.page,
 	      scale: 1,
-	      defaultViewport: pdfPage.getViewport(1),
+	      defaultViewport: pdfPage.getViewport({scale: 1}),
 	      // We can enable text/annotations layers, if needed
 	      textLayerFactory: textLayer,
 	      annotationLayerFactory: annotationLayer,
