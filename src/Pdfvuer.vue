@@ -222,5 +222,11 @@ export default {
       self.drawScaled(self.scale);
     }).catch(err => self.$emit('error', err))
 	},
+  beforeDestroy() {
+    var self = this;
+    if (self.pdfViewer) {
+      self.pdfViewer.destroy();
+    }
+  }
 }
 </script>
