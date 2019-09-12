@@ -211,7 +211,7 @@ export default {
 	      container: container,
 	      id: self.page,
 	      scale: 1,
-	      defaultViewport: pdfPage.getViewport(1),
+	      defaultViewport: pdfPage.getViewport({scale: 1}),
 	      // We can enable text/annotations layers, if needed
 	      textLayerFactory: textLayer,
 	      annotationLayerFactory: annotationLayer,
@@ -222,5 +222,11 @@ export default {
       self.drawScaled(self.scale);
     }).catch(err => self.$emit('error', err))
 	},
+  beforeDestroy() {
+    var self = this;
+    if (self.pdfViewer) {
+      self.pdfViewer.destroy();
+    }
+  }
 }
 </script>
