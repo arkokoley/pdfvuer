@@ -226,6 +226,7 @@ export default {
     var self = this;
     if (self.pdfViewer) {
       self.pdfViewer.destroy();
+	  self.pdfViewer = null;
     }
   }
 }
