@@ -1,21 +1,9 @@
 <template>
   <div>
-    <slot
-      v-if="loading"
-      name="loading"
-    />
-    <div
-      id="viewerContainer"
-      ref="container"
-    >
-      <div
-        id="viewer"
-        class="pdfViewer"
-      />
-      <resizeSensor
-        :initial="true"
-        @resize="resizeScale"
-      />
+    <slot v-if="loading" name="loading"/>
+    <div id="viewerContainer" ref="container">
+      <div id="viewer" class="pdfViewer"/>
+      <resizeSensor :initial="true" @resize="resizeScale"/>
     </div>
   </div>
 </template>
@@ -24,14 +12,8 @@
 
   import 'pdfjs-dist/web/pdf_viewer.css';
   import pdfjsLib from 'pdfjs-dist/webpack.js';
-  import {
-    DefaultAnnotationLayerFactory,
-    DefaultTextLayerFactory,
-    PDFLinkService,
-    PDFPageView
-  } from 'pdfjs-dist/web/pdf_viewer.js';
+  import { DefaultAnnotationLayerFactory, DefaultTextLayerFactory, PDFLinkService, PDFPageView } from 'pdfjs-dist/web/pdf_viewer.js';
   import resizeSensor from 'vue-resize-sensor'
-
 
   function isPDFDocumentLoadingTask(obj) {
     return typeof (obj) === 'object' && obj !== null && obj.__PDFDocumentLoadingTask === true;

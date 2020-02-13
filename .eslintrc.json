@@ -21,5 +21,19 @@
     "vue"
   ],
   "rules": {
+    "vue/max-attributes-per-line": [
+      "error", {
+        "singleline": 3,
+        "multiline": {
+          "max": 2,
+          "allowFirstLine": false
+        }
+      }
+    ],
+    "vue/html-closing-bracket-spacing": ["error", {
+      "startTag": "never",
+      "endTag": "never",
+      "selfClosingTag": "never"
+    }]
   }
 }
