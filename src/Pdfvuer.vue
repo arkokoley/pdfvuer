@@ -77,7 +77,7 @@
       },
       scale: {
         type: [Number, String],
-        default: 1,
+        default: 'page-width',
       },
       resize: {
         type: Boolean,
