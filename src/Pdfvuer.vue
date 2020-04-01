@@ -33,7 +33,7 @@
 
       this.fetch = function (query) {
 
-        return import('raw-loader!pdfjs-dist/cmaps/' + query.name + '.bcmap' /* webpackChunkName: "noprefetch-[request]" */)
+        return import('raw-loader!pdfjs-dist/cmaps/' + query.name + '.bcmap' /* webpackChunkName: "pdfjs/noprefetch-[request]" */)
           .then(function (bcmap) {
 
             return {
@@ -45,7 +45,7 @@
     };
 
 
-    var loadingTask = pdfjsLib.getDocument(source);
+    var loadingTask = await pdfjsLib.getDocument(source).promise;
     loadingTask.__PDFDocumentLoadingTask = true; // since PDFDocumentLoadingTask is not public
 
     if (options && options.onPassword)
