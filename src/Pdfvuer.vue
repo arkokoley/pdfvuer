@@ -45,7 +45,7 @@
     };
 
 
-    var loadingTask = await pdfjsLib.getDocument(source).promise;
+    var loadingTask = pdfjsLib.getDocument(source).promise;
     loadingTask.__PDFDocumentLoadingTask = true; // since PDFDocumentLoadingTask is not public
 
     if (options && options.onPassword)
