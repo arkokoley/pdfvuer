@@ -2,6 +2,8 @@
 
 > A PDF viewer for Vue using Mozilla's PDF.js
 
+[![npm version](https://badge.fury.io/js/pdfvuer.svg)](https://badge.fury.io/js/pdfvuer)
+
 ## Install
 ```
 npm install --save pdfvuer
