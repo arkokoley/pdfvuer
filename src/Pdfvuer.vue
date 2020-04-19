@@ -47,7 +47,7 @@
     },
     props: {
       src: {
-        type: [String, Object],
+        type: [String, Object, Promise],
         default: '',
       },
       page: {
