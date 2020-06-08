@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
-    "pdfjs-dist": "^2.0.489",
+    "pdfjs-dist": "^2.5.207",
     "raw-loader": "^0.5.1"
   },
   "browserslist": [
