@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "core-js": "3",
-    "pdfjs-dist": "^2.3.200",
+    "pdfjs-dist": "2.3.200",
     "raw-loader": "^0.5.1",
     "vue-resize-sensor": "^2.0.0"
   },
@@ -43,6 +43,6 @@
     "vue-loader": "^13.0.5",
     "vue-template-compiler": "^2.6.11",
     "webpack": "^4.41.6",
-    "webpack-dev-server": "^2.9.1"
+    "webpack-dev-server": "^3.1.11"
   }
 }
