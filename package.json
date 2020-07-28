@@ -4,18 +4,26 @@
   "version": "1.6.0",
   "author": "Gaurav Koley <arkokoley@live.in>",
   "license": "MIT",
-  "main": "./src/Pdfvuer.vue",
   "homepage": "https://github.com/arkokoley/pdfvuer#pdfvuer",
   "bugs": {
     "url": "https://github.com/arkokoley/pdfvuer/issues",
     "email": "arkokoley@live.in"
   },
   "repository": "github:arkokoley/pdfvuer",
+  "main": "dist/pdfvuer.ssr.js",
+  "browser": "dist/pdfvuer.esm.js",
+  "module": "dist/pdfvuer.esm.js",
+  "unpkg": "dist/pdfvuer.min.js",
+  "files": [
+    "dist/*",
+    "src/**/*.vue"
+  ],
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
-    "build-bundle": "vue-cli-service build --target lib --name pdfvuer ./src/App.vue",
-    "lint": "eslint 'src/*.{js,vue}'"
+    "serve": "vue-cli-service serve dev/serve.js",
+    "build": "cross-env NODE_ENV=production rollup --config build/rollup.config.js",
+    "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
+    "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
+    "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife"
   },
   "dependencies": {
     "core-js": "3",
@@ -23,26 +31,31 @@
     "raw-loader": "^0.5.1",
     "vue-resize-sensor": "^2.0.0"
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ],
   "devDependencies": {
-    "@babel/core": "^7.8.4",
-    "@babel/plugin-transform-runtime": "^7.8.3",
-    "@babel/preset-env": "^7.8.4",
-    "babel-eslint": "^10.0.1",
-    "babel-loader": "^7.1.2",
-    "cross-env": "^5.0.5",
-    "css-loader": "^0.28.7",
-    "eslint": "^6.8.0",
-    "eslint-loader": "^2.1.2",
-    "eslint-plugin-vue": "^6.1.2",
-    "file-loader": "^1.1.4",
-    "vue-loader": "^13.0.5",
-    "vue-template-compiler": "^2.6.11",
-    "webpack": "^4.41.6",
-    "webpack-dev-server": "^3.11.0"
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@rollup/plugin-alias": "^2.2.0",
+    "@rollup/plugin-commonjs": "^11.1.0",
+    "@rollup/plugin-node-resolve": "^8.4.0",
+    "@rollup/plugin-replace": "^2.3.2",
+    "@vue/cli-plugin-babel": "^4.3.1",
+    "@vue/cli-service": "^4.3.1",
+    "cross-env": "^7.0.2",
+    "css-loader": "^4.0.0",
+    "jquery": "^3.5.1",
+    "minimist": "^1.2.5",
+    "rollup": "^2.7.3",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-node-polyfills": "^0.2.1",
+    "rollup-plugin-terser": "^5.3.0",
+    "rollup-plugin-vue": "^5.1.6",
+    "vue": "^2.6.11",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "peerDependencies": {
+    "vue": "^2.6.11"
+  },
+  "engines": {
+    "node": ">=10"
   }
 }

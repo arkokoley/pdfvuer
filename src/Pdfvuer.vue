@@ -10,8 +10,7 @@
 <script>
   'use strict';
 
-  import 'pdfjs-dist/web/pdf_viewer.css';
-  import pdfjsLib from 'pdfjs-dist/webpack.js';
+  import pdfjsLib from 'pdfjs-dist';
   import { DefaultAnnotationLayerFactory, DefaultTextLayerFactory, PDFLinkService, PDFPageView } from 'pdfjs-dist/web/pdf_viewer.js';
   import resizeSensor from 'vue-resize-sensor'
 
@@ -202,3 +201,6 @@
     }
   }
 </script>
+<style scoped>
+@import '../node_modules/pdfjs-dist/web/pdf_viewer.css';
+</style>
