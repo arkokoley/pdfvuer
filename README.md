@@ -211,7 +211,7 @@ Function handler for errors occurred during loading/drawing PDF source.
 
 ## Public Demo
 
-Advanced Example - [https://blog.koley.in/pdfvuer](https://blog.koley.in/pdfvuer)
+Advanced Example - [https://arkokoley.github.io/pdfvuer](https://arkokoley.github.io/pdfvuer)
 
 [Used in production by  Gratia](https://goodwill.zense.co.in/resources/1)
 
