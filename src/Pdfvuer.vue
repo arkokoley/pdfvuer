@@ -198,10 +198,20 @@
 
         return width / this.pdfViewer.viewport.width;
       },
+      calculateScaleHeight: function () {
+        this.pdfViewer.update(1, this.rotate); // Reset scaling to 1 so that "this.pdfViewer.viewport.width" gives proper width;
+        var height = this.$refs.container.offsetHeight;
+        var parentel = this.$refs.container.parentElement.parentElement;
+        return parentel.offsetHeight / height;
+      },
       drawScaled: function (newScale) {
         if (this.pdfViewer) {
           if (newScale === 'page-width') {
             newScale = this.calculateScale();
+            this.$emit("update:scale", newScale);
+          }
+          else if (newScale === 'page-height') {
+            newScale = this.calculateScaleHeight();
             this.$emit("update:scale", newScale);
           }
           this.pdfViewer.update(newScale, this.rotate);
