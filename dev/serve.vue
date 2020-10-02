@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import pdfvuer from '@/Pdfvuer.vue'
+import pdfvuer from '../src/Pdfvuer'
 import $ from "jquery";
 
 export default {

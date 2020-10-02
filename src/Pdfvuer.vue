@@ -10,8 +10,19 @@
 <script>
   'use strict';
 
-  import pdfjsLib from 'pdfjs-dist';
-  import { DefaultAnnotationLayerFactory, DefaultTextLayerFactory, PDFLinkService, PDFPageView } from 'pdfjs-dist/web/pdf_viewer.js';
+  var pdfjsLib = require('pdfjs-dist/build/pdf.js');
+  if (process.env.VUE_ENV !== 'server') {
+    if (typeof window !== 'undefined' && 'Worker' in window) {
+      // var PdfjsWorker = require('worker-loader!pdfjs-dist/es5/build/pdf.worker.js');
+      // pdfjsLib.GlobalWorkerOptions.workerPort = new PdfjsWorker();
+    }
+  }
+  import {
+    DefaultAnnotationLayerFactory,
+    DefaultTextLayerFactory,
+    PDFLinkService,
+    PDFPageView
+  } from 'pdfjs-dist/web/pdf_viewer.js';
   import resizeSensor from 'vue-resize-sensor'
 
   function isPDFDocumentLoadingTask(obj) {
@@ -21,7 +32,9 @@
   function createLoadingTask(src, options) {
     var source;
     if (typeof (src) === 'string')
-      source = {url: src};
+      source = {
+        url: src
+      };
     else if (typeof (src) === 'object' && src !== null)
       source = Object.assign({}, src);
     else
@@ -135,7 +148,8 @@
       //   }
       // });
       //
-      let annotationLayer = undefined, textLayer = undefined;
+      let annotationLayer = undefined,
+        textLayer = undefined;
       if (self.annotation) {
         annotationLayer = new DefaultAnnotationLayerFactory();
       }
@@ -149,21 +163,24 @@
           self.pdf = pdfDocument;
           return pdfDocument.getPage(self.page)
         }).then(function (pdfPage) {
-        // Creating the page view with default parameters.
-        self.pdfViewer = new PDFPageView({
-          container: container,
-          id: self.page,
-          scale: 1,
-          defaultViewport: pdfPage.getViewport({scale: 1}),
-          // We can enable text/annotations layers, if needed
-          textLayerFactory: textLayer,
-          annotationLayerFactory: annotationLayer,
-        });
-        // Associates the actual page with the view, and drawing it
-        self.pdfViewer.setPdfPage(pdfPage);
-        pdfLinkService.setViewer(self.pdfViewer);
-        self.drawScaled(self.scale);
-      }).catch(err => self.$emit('error', err))
+          // Creating the page view with default parameters.
+          self.pdfViewer = new PDFPageView({
+            container: container,
+            id: self.page,
+            scale: 1,
+            defaultViewport: pdfPage.getViewport({
+              scale: 1
+            }),
+            textLayerFactory: textLayer,
+            annotationLayerFactory: annotationLayer,
+          });
+          self.loading = false;
+          self.$emit('loading', false);
+          // Associates the actual page with the view, and drawing it
+          self.pdfViewer.setPdfPage(pdfPage);
+          pdfLinkService.setViewer(self.pdfViewer);
+          self.drawScaled(self.scale);
+        }).catch(err => self.$emit('error', err))
     },
     beforeDestroy() {
       var self = this;
