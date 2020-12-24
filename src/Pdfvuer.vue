@@ -17,6 +17,7 @@
       // pdfjsLib.GlobalWorkerOptions.workerPort = new PdfjsWorker();
     }
   }
+  import 'pdfjs-dist/build/pdf.worker.entry'
   import {
     DefaultAnnotationLayerFactory,
     DefaultTextLayerFactory,
