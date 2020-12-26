@@ -21,7 +21,8 @@
     DefaultAnnotationLayerFactory,
     DefaultTextLayerFactory,
     PDFLinkService,
-    PDFPageView
+    PDFPageView,
+    EventBus
   } from 'pdfjs-dist/web/pdf_viewer.js';
   import resizeSensor from 'vue-resize-sensor'
 
@@ -173,6 +174,7 @@
             }),
             textLayerFactory: textLayer,
             annotationLayerFactory: annotationLayer,
+            eventBus: new EventBus()
           });
           self.loading = false;
           self.$emit('loading', false);
