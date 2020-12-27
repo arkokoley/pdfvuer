@@ -126,9 +126,12 @@
       }
 
       var container = this.$refs.container;
+      var eventBus = new EventBus()
 
       // (Optionally) enable hyperlinks within PDF files.
-      var pdfLinkService = new PDFLinkService();
+      var pdfLinkService = new PDFLinkService({
+        eventBus: eventBus
+      });
 
       // self.pdf = pdfSinglePageViewer;
       // console.log(self.pdf.currentScaleValue);
@@ -172,9 +175,9 @@
             defaultViewport: pdfPage.getViewport({
               scale: 1
             }),
+            eventBus: eventBus,
             textLayerFactory: textLayer,
             annotationLayerFactory: annotationLayer,
-            eventBus: new EventBus()
           });
           self.loading = false;
           self.$emit('loading', false);

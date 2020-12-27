@@ -37,8 +37,9 @@
 </template>
 
 <script>
-import pdfvuer from '../src/Pdfvuer'
+import pdfvuer from '../dist/pdfvuer.umd'
 import $ from "jquery";
+import PdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry'
 
 export default {
   components: {
@@ -77,7 +78,7 @@ export default {
   methods: {
     getPdf () {
       var self = this;
-      self.pdfdata = pdfvuer.createLoadingTask('http://africau.edu/images/default/sample.pdf');
+      self.pdfdata = pdfvuer.createLoadingTask('http://arkokoley.github.io/pdfvuer/nationStates.pdf');
       self.pdfdata.then(pdf => {
         self.numPages = pdf.numPages;
         window.onscroll = function() { 
@@ -129,3 +130,4 @@ export default {
     padding: 16px;
   }
 </style>
+<style src="../dist/pdfvuer.css"></style>
