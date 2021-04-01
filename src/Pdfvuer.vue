@@ -21,6 +21,7 @@
   import {
     DefaultAnnotationLayerFactory,
     DefaultTextLayerFactory,
+    PDFFindController,
     PDFLinkService,
     PDFPageView,
     EventBus
@@ -127,34 +128,23 @@
       }
 
       var container = this.$refs.container;
-      var eventBus = new EventBus()
+      var eventBus = new EventBus();
 
       // (Optionally) enable hyperlinks within PDF files.
-      var pdfLinkService = new PDFLinkService({
-        eventBus: eventBus
+      self.pdfLinkService = new PDFLinkService({
+        eventBus: eventBus,
+        externalLinkTarget: 2
       });
 
-      // self.pdf = pdfSinglePageViewer;
-      // console.log(self.pdf.currentScaleValue);
-      // pdfLinkService.setViewer(self.pdf);
-      //
-      // // (Optionally) enable find controller.
-      // var pdfFindController = new PDFFindController({
-      //   pdfViewer: self.pdf,
-      // });
-      // self.pdf.setFindController(pdfFindController);
-      //
-      // container.addEventListener('pagesinit', function () {
-      //   // We can use pdfSinglePageViewer now, e.g. let's change default scale.
-      //   self.pdf.currentScaleValue = 'page-width';
-      //
-      //   if (SEARCH_FOR) { // We can try search for things
-      //     pdfFindController.executeCommand('find', {query: SEARCH_FOR});
-      //   }
-      // });
-      //
+      // (Optionally) enable find controller.
+      self.pdfFindController = new PDFFindController({
+        eventBus: eventBus,
+        linkService: self.pdfLinkService
+      });
+
       let annotationLayer = undefined,
         textLayer = undefined;
+
       if (self.annotation) {
         annotationLayer = new DefaultAnnotationLayerFactory();
       }
@@ -182,9 +172,19 @@
           });
           self.loading = false;
           self.$emit('loading', false);
+
           // Associates the actual page with the view, and drawing it
           self.pdfViewer.setPdfPage(pdfPage);
-          pdfLinkService.setViewer(self.pdfViewer);
+          // Set up a scrollPageIntoView function for our links
+          var viewer = {
+            scrollPageIntoView: function(params) {
+              // Send an event when clicking internal links so we can handle loading/scrolling to the correct page
+              self.$emit('link-clicked', params);
+            },
+          };
+          self.pdfLinkService.setDocument(self.pdf);
+          self.pdfLinkService.setViewer(viewer);
+          self.pdfFindController.setDocument(self.pdf);
           self.drawScaled(self.scale);
         }).catch(err => self.$emit('error', err))
     },
@@ -221,7 +221,12 @@
             this.$emit("update:scale", newScale);
           }
           this.pdfViewer.update(newScale, this.rotate);
+          // The SimpleLinkService from the DefaultAnnotationLayerFactory doesn't do anything with links so override with our LinkService after it is created
+          this.pdfViewer.annotationLayer = this.pdfViewer.annotationLayerFactory.createAnnotationLayerBuilder(this.pdfViewer.div, this.pdfViewer.pdfPage);
+          this.pdfViewer.annotationLayer.linkService = this.pdfLinkService;
           this.pdfViewer.draw();
+          // The findController needs the text layer to have been created in the Draw() function, so link it in now
+          this.pdfViewer.textLayer.findController = this.pdfFindController;
           this.loading = false;
           this.$emit('loading', false);
         }
