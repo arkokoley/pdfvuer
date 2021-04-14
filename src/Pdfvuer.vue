@@ -188,7 +188,7 @@
           self.drawScaled(self.scale);
         }).catch(err => self.$emit('error', err))
     },
-    beforeDestroy() {
+    beforeDestroy: function() {
       var self = this;
       if (self.pdfViewer) {
         self.pdfViewer.destroy();
