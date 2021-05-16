@@ -28,7 +28,10 @@
       </a>
     </div>
     <pdf :src="pdfdata" v-for="i in numPages" :key="i" :id="i" :page="i"
-      :scale.sync="scale" style="width:100%;margin:20px auto;">
+      :scale.sync="scale" style="width:100%;margin:20px auto;"
+        :annotation="true"
+        :resize="true"
+        @link-clicked="handle_pdf_link">
       <template slot="loading">
         loading content here...
       </template>
@@ -45,45 +48,69 @@ export default {
   components: {
     pdf: pdfvuer
   },
-  data () {
+  data() {
     return {
       page: 1,
       numPages: 0,
       pdfdata: undefined,
       errors: [],
-      scale: 'page-width'
+      scale: 'page-width',
+      doc_loading: false
     }
   },
   computed: {
-    formattedZoom () {
-        return Number.parseInt(this.scale * 100);
+    formattedZoom() {
+      return Number.parseInt(this.scale * 100);
     },
   },
-  mounted () {
+  mounted() {
     this.getPdf()
   },
   watch: {
     show: function (s) {
-      if(s) {
+      if (s) {
         this.getPdf();
       }
     },
     page: function (p) {
-      if( window.pageYOffset <= this.findPos(document.getElementById(p)) || ( document.getElementById(p+1) && window.pageYOffset >= this.findPos(document.getElementById(p+1)) )) {
+      if (window.pageYOffset <= this.findPos(document.getElementById(p)) || (document.getElementById(p + 1) && window.pageYOffset >= this.findPos(document.getElementById(p + 1)))) {
         // window.scrollTo(0,this.findPos(document.getElementById(p)));
         document.getElementById(p).scrollIntoView();
+      }
+    },
+    // Wait for our document to be loaded and highlight our search terms
+    doc_loading: function () {
+      var self = this;
+      if (this.doc_loading == false) {
+        this.$children.forEach(function (obj) {
+          if (obj && obj.$el && obj.$el.classList && obj.$el.classList.contains('pdf-pages')) {
+            obj.pdfFindController.executeCommand('find', {
+              caseSensitive: false,
+              findPrevious: undefined,
+              highlightAll: true,
+              phraseSearch: false,
+              query: "link"
+            });
+          }
+        });
       }
     }
   },
   methods: {
-    getPdf () {
+    handle_pdf_link: function (params) {
+      // Scroll to the appropriate place on our page - the Y component of
+      // params.destArray * (div height / ???), from the bottom of the page div
+      var page = document.getElementById(String(params.pageNumber));
+      page.scrollIntoView();
+    },
+    getPdf() {
       var self = this;
-      self.pdfdata = pdfvuer.createLoadingTask('http://arkokoley.github.io/pdfvuer/nationStates.pdf');
+      self.pdfdata = pdfvuer.createLoadingTask('http://www.docs.is.ed.ac.uk/skills/documents/3722/3722-2014.pdf');
       self.pdfdata.then(pdf => {
         self.numPages = pdf.numPages;
-        window.onscroll = function() { 
-          changePage() 
-          stickyNav()  
+        window.onscroll = function () {
+          changePage()
+          stickyNav()
         }
 
         // Get the offset position of the navbar
@@ -98,15 +125,16 @@ export default {
           }
         }
 
-        function changePage () {
-          var i = 1, count = Number(pdf.numPages);
+        function changePage() {
+          var i = 1,
+            count = Number(pdf.numPages);
           do {
-            if(window.pageYOffset >= self.findPos(document.getElementById(i)) && 
-                window.pageYOffset <= self.findPos(document.getElementById(i+1))) {
+            if (window.pageYOffset >= self.findPos(document.getElementById(i)) &&
+              window.pageYOffset <= self.findPos(document.getElementById(i + 1))) {
               self.page = i
             }
             i++
-          } while ( i < count)
+          } while (i < count)
           if (window.pageYOffset >= self.findPos(document.getElementById(i))) {
             self.page = i
           }
@@ -114,7 +142,10 @@ export default {
       });
     },
     findPos(obj) {
-      return obj.offsetTop;
+      if (obj)
+        return obj.offsetTop;
+      else
+        return null
     }
   }
 }

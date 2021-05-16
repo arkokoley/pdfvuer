@@ -63,7 +63,10 @@ export default {
       </a>
     </div>
     <pdf :src="pdfdata" v-for="i in numPages" :key="i" :id="i" :page="i"
-      :scale.sync="scale" style="width:100%;margin:20px auto;">
+      :scale.sync="scale" style="width:100%;margin:20px auto;"
+        :annotation="true"
+        :resize="true"
+        @link-clicked="handle_pdf_link">
       <template slot="loading">
         loading content here...
       </template>
@@ -110,6 +113,12 @@ export default {
     }
   },
   methods: {
+    handle_pdf_link: function (params) {
+      // Scroll to the appropriate place on our page - the Y component of
+      // params.destArray * (div height / ???), from the bottom of the page div
+      var page = document.getElementById(String(params.pageNumber));
+      page.scrollIntoView();
+    },
     getPdf () {
       var self = this;
       self.pdfdata = pdfvuer.createLoadingTask('./static/relativity.pdf');
@@ -205,6 +214,19 @@ The provided PDF's loading state
 
 #### @error <sup>Function<sup>
 Function handler for errors occurred during loading/drawing PDF source.
+
+#### @link-clicked <sup>Function<sup>
+Function handler for errors occurred during loading/drawing PDF source.
+Example:
+```js
+    handle_pdf_link: function (params) {
+      // Scroll to the appropriate place on our page - the Y component of
+      // params.destArray * (div height / ???), from the bottom of the page div
+      var page = document.getElementById(String(params.pageNumber));
+      page.scrollIntoView();
+    }
+```
+
 
 ### Public static methods
 
