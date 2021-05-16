@@ -1,7 +1,7 @@
 {
   "name": "pdfvuer",
   "description": "A PDF viewer for Vue using Mozilla's PDF.js",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "author": "Gaurav Koley <arkokoley@live.in>",
   "license": "MIT",
   "homepage": "https://github.com/arkokoley/pdfvuer#pdfvuer",
