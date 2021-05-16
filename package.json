@@ -21,9 +21,6 @@
     "build": "vue-cli-service build --target lib --name pdfvuer src/Pdfvuer.vue"
   },
   "dependencies": {
-    "@vue/cli-plugin-pwa": "^4.5.6",
-    "core-js": "3",
-    "module": "^1.2.5",
     "pdfjs-dist": "^2.4.456",
     "raw-loader": "^0.5.1",
     "vue-resize-sensor": "^2.0.0"
@@ -37,10 +34,12 @@
     "@rollup/plugin-replace": "^2.3.2",
     "@vue/cli-plugin-babel": "^4.5.6",
     "@vue/cli-service": "^4.5.6",
+    "core-js": "3",
     "cross-env": "^7.0.2",
     "css-loader": "^4.0.0",
     "jquery": "^3.5.1",
     "minimist": "^1.2.5",
+    "module": "^1.2.5",
     "rollup": "^2.7.3",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-node-polyfills": "^0.2.1",

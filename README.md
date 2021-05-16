@@ -21,8 +21,7 @@ npm install --save pdfvuer
 
 <script>
 import pdf from 'pdfvuer'
-
-// import 'pdfjs-dist/build/pdf.worker.entry' // To be uncommented if you get error: Error: Setting up fake worker failed: "window.pdfjsWorker is undefined".
+import 'pdfjs-dist/build/pdf.worker.entry'
 
 export default {
   components: {
@@ -76,7 +75,7 @@ export default {
 
 <script>
 import pdfvuer from 'pdfvuer'
-// import 'pdfjs-dist/build/pdf.worker.entry' // To be uncommented if you get error: Error: Setting up fake worker failed: "window.pdfjsWorker is undefined".
+import 'pdfjs-dist/build/pdf.worker.entry'
 
 export default {
   components: {
