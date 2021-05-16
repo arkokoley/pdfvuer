@@ -42,7 +42,9 @@
 <script>
 import pdfvuer from '../dist/pdfvuer.umd'
 import $ from "jquery";
-// import PdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry'
+import PdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry'
+
+PdfjsWorker
 
 export default {
   components: {
