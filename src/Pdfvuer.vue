@@ -36,7 +36,8 @@
     var source;
     if (typeof (src) === 'string')
       source = {
-        url: src
+        url: src,
+        withCredentials: true
       };
     else if (typeof (src) === 'object' && src !== null)
       source = Object.assign({}, src);
