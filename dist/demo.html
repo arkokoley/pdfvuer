@@ -1,0 +1,19 @@
+<meta charset="utf-8">
+<title>pdfvuer demo</title>
+<script src="https://unpkg.com/vue"></script>
+<script src="./pdfvuer.umd.js"></script>
+
+<link rel="stylesheet" href="./pdfvuer.css">
+
+
+<div id="app">
+  <demo></demo>
+</div>
+
+<script>
+new Vue({
+  components: {
+    demo: pdfvuer
+  }
+}).$mount('#app')
+</script>
