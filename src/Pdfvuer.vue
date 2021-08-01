@@ -240,6 +240,4 @@
     }
   }
 </script>
-<style scoped>
-@import '../node_modules/pdfjs-dist/web/pdf_viewer.css';
-</style>
+<style src="pdfjs-dist/web/pdf_viewer.css"></style>
