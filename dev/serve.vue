@@ -29,7 +29,8 @@
     </div>
     <pdf :src="pdfdata" v-for="i in numPages" :key="i" :id="i" :page="i"
       :scale.sync="scale" style="width:100%;margin:20px auto;"
-        :annotation="true"
+        :annotation="false"
+        :text="true"
         :resize="true"
         @link-clicked="handle_pdf_link">
       <template slot="loading">
@@ -40,8 +41,7 @@
 </template>
 
 <script>
-import pdfvuer from '../dist/pdfvuer.umd'
-import $ from "jquery";
+import pdfvuer from '../src/Pdfvuer.vue'
 import PdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry'
 
 PdfjsWorker
@@ -107,40 +107,40 @@ export default {
     },
     getPdf() {
       var self = this;
-      self.pdfdata = pdfvuer.createLoadingTask('http://www.docs.is.ed.ac.uk/skills/documents/3722/3722-2014.pdf');
+      self.pdfdata = pdfvuer.createLoadingTask('https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf');
       self.pdfdata.then(pdf => {
         self.numPages = pdf.numPages;
-        window.onscroll = function () {
-          changePage()
-          stickyNav()
-        }
+        // window.onscroll = function () {
+        //   changePage()
+        //   stickyNav()
+        // }
 
-        // Get the offset position of the navbar
-        var sticky = $('#buttons')[0].offsetTop
+        // // Get the offset position of the navbar
+        // var sticky = document.querySelector('#buttons')[0].offsetTop
 
-        // Add the sticky class to the self.$refs.nav when you reach its scroll position. Remove "sticky" when you leave the scroll position
-        function stickyNav() {
-          if (window.pageYOffset >= sticky) {
-            $('#buttons')[0].classList.remove("hidden")
-          } else {
-            $('#buttons')[0].classList.add("hidden")
-          }
-        }
+        // // Add the sticky class to the self.$refs.nav when you reach its scroll position. Remove "sticky" when you leave the scroll position
+        // function stickyNav() {
+        //   if (window.pageYOffset >= sticky) {
+        //     document.querySelector('#buttons')[0].classList.remove("hidden")
+        //   } else {
+        //     document.querySelector('#buttons')[0].classList.add("hidden")
+        //   }
+        // }
 
-        function changePage() {
-          var i = 1,
-            count = Number(pdf.numPages);
-          do {
-            if (window.pageYOffset >= self.findPos(document.getElementById(i)) &&
-              window.pageYOffset <= self.findPos(document.getElementById(i + 1))) {
-              self.page = i
-            }
-            i++
-          } while (i < count)
-          if (window.pageYOffset >= self.findPos(document.getElementById(i))) {
-            self.page = i
-          }
-        }
+        // function changePage() {
+        //   var i = 1,
+        //     count = Number(pdf.numPages);
+        //   do {
+        //     if (window.pageYOffset >= self.findPos(document.getElementById(i)) &&
+        //       window.pageYOffset <= self.findPos(document.getElementById(i + 1))) {
+        //       self.page = i
+        //     }
+        //     i++
+        //   } while (i < count)
+        //   if (window.pageYOffset >= self.findPos(document.getElementById(i))) {
+        //     self.page = i
+        //   }
+        // }
       });
     },
     findPos(obj) {

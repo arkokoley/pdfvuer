@@ -10,7 +10,7 @@
 <script>
   'use strict';
 
-  var pdfjsLib = require('pdfjs-dist/build/pdf');
+  var pdfjsLib = require('pdfjs-dist');
   // if (process.env.VUE_ENV !== 'server') {
   //   if (typeof window !== 'undefined' && 'Worker' in window) {
   //     var PdfjsWorker = require('worker-loader!pdfjs-dist/build/pdf.worker.js');
@@ -222,11 +222,15 @@
           }
           this.pdfViewer.update(newScale, this.rotate);
           // The SimpleLinkService from the DefaultAnnotationLayerFactory doesn't do anything with links so override with our LinkService after it is created
-          this.pdfViewer.annotationLayer = this.pdfViewer.annotationLayerFactory.createAnnotationLayerBuilder(this.pdfViewer.div, this.pdfViewer.pdfPage);
-          this.pdfViewer.annotationLayer.linkService = this.pdfLinkService;
+          if(this.annotation) {
+            this.pdfViewer.annotationLayer = this.pdfViewer.annotationLayerFactory.createAnnotationLayerBuilder(this.pdfViewer.div, this.pdfViewer.pdfPage);
+            this.pdfViewer.annotationLayer.linkService = this.pdfLinkService;
+          }
           this.pdfViewer.draw();
           // The findController needs the text layer to have been created in the Draw() function, so link it in now
-          this.pdfViewer.textLayer.findController = this.pdfFindController;
+          if (this.text) {
+            this.pdfViewer.textLayer.findController = this.pdfFindController;
+          }
           this.loading = false;
           this.$emit('loading', false);
         }

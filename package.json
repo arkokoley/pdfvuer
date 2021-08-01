@@ -21,7 +21,7 @@
     "build": "vue-cli-service build --target lib --name pdfvuer src/Pdfvuer.vue"
   },
   "dependencies": {
-    "pdfjs-dist": "^2.4.456",
+    "pdfjs-dist": "2.5.207",
     "raw-loader": "^0.5.1",
     "vue-resize-sensor": "^2.0.0"
   },
