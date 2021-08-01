@@ -20,7 +20,7 @@
     EventBus
   } from 'pdfjs-dist/web/pdf_viewer.js';
   import resizeSensor from 'vue-resize-sensor'
-
+  import PdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry'
   function isPDFDocumentLoadingTask(obj) {
     return typeof (obj) === 'object' && obj !== null && obj.__PDFDocumentLoadingTask === true;
   }
