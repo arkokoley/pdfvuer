@@ -10,14 +10,7 @@
 <script>
   'use strict';
 
-  var pdfjsLib = require('pdfjs-dist');
-  // if (process.env.VUE_ENV !== 'server') {
-  //   if (typeof window !== 'undefined' && 'Worker' in window) {
-  //     var PdfjsWorker = require('worker-loader!pdfjs-dist/build/pdf.worker.js');
-  //     // pdfjsLib.GlobalWorkerOptions.workerPort = new PdfjsWorker();
-  //   }
-  // }
-  // import 'pdfjs-dist/build/pdf.worker.entry'
+  import { getDocument } from 'pdfjs-dist';
   import {
     DefaultAnnotationLayerFactory,
     DefaultTextLayerFactory,
@@ -32,7 +25,7 @@
     return typeof (obj) === 'object' && obj !== null && obj.__PDFDocumentLoadingTask === true;
   }
 
-  function createLoadingTask(src, options) {
+  export function createLoadingTask(src, options) {
     var source;
     if (typeof (src) === 'string')
       source = {
@@ -43,7 +36,7 @@
     else
       throw new TypeError('invalid src type');
 
-    var loadingTask = pdfjsLib.getDocument(source).promise;
+    var loadingTask = getDocument(source).promise;
     loadingTask.__PDFDocumentLoadingTask = true; // since PDFDocumentLoadingTask is not public
 
     if (options && options.onPassword)
@@ -56,7 +49,6 @@
   }
 
   export default {
-    createLoadingTask: createLoadingTask,
     components: {
       resizeSensor
     },

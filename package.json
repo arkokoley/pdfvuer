@@ -10,7 +10,7 @@
     "email": "arkokoley@live.in"
   },
   "repository": "github:arkokoley/pdfvuer",
-  "main": "dist/pdfvuer.umd.js",
+  "main": "src/Pdfvuer.vue",
   "unpkg": "dist/pdfvuer.umd.min.js",
   "files": [
     "dist/*",
