@@ -50,8 +50,8 @@
     "worker-loader": "^3.0.1"
   },
   "peerDependencies": {
-    "vue": "^2.6.11",
-    "pdfjs-dist": "2.5.207"
+    "pdfjs-dist": "2.5.207",
+    "vue": "^2.6.11"
   },
   "engines": {
     "node": ">=10"

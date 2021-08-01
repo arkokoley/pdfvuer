@@ -49,6 +49,7 @@
   }
 
   export default {
+    createLoadingTask: createLoadingTask,
     components: {
       resizeSensor
     },
@@ -162,9 +163,6 @@
             textLayerFactory: textLayer,
             annotationLayerFactory: annotationLayer,
           });
-          self.loading = false;
-          self.$emit('loading', false);
-
           // Associates the actual page with the view, and drawing it
           self.pdfViewer.setPdfPage(pdfPage);
           // Set up a scrollPageIntoView function for our links
@@ -178,7 +176,14 @@
           self.pdfLinkService.setViewer(viewer);
           self.pdfFindController.setDocument(self.pdf);
           self.drawScaled(self.scale);
-        }).catch(err => self.$emit('error', err))
+
+          self.loading = false;
+          self.$emit('loading', false);
+        }).catch(err => {
+          self.$emit('error', err)
+          self.loading = false
+          self.$emit('loading', false);
+        })
     },
     beforeDestroy() {
       var self = this;
