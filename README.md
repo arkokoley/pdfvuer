@@ -21,7 +21,7 @@ npm install --save pdfvuer
 
 <script>
 import pdf from 'pdfvuer'
-import 'pdfjs-dist/build/pdf.worker.entry'
+import 'pdfjs-dist/build/pdf.worker.entry' // not needed since v1.9.1
 
 export default {
   components: {
@@ -75,7 +75,7 @@ export default {
 
 <script>
 import pdfvuer from 'pdfvuer'
-import 'pdfjs-dist/build/pdf.worker.entry'
+import 'pdfjs-dist/build/pdf.worker.entry' // not needed since v1.9.1
 
 export default {
   components: {
@@ -239,7 +239,7 @@ Advanced Example - [https://arkokoley.github.io/pdfvuer](https://arkokoley.githu
 
 [Used in production by  Gratia](https://goodwill.zense.co.in/resources/1)
 
-> Made with :heart: at [IIIT Bangalore](http://iiitb.ac.in)
+> Made with :heart: in Bangalore, India
 
 ## License 
-MIT &copy; [Gaurav Koley](https://gaurav.koley.in), 2018
+MIT &copy; [Gaurav Koley](https://gaurav.koley.in), 2021
