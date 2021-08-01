@@ -4,9 +4,16 @@
 
 [![npm version](https://badge.fury.io/js/pdfvuer.svg)](https://badge.fury.io/js/pdfvuer)
 
-## Install
+## Install 
+
+For Vue 2:
 ```
 npm install --save pdfvuer
+```
+
+For Vue 3:
+```
+npm i pdfvuer@next --save
 ```
 
 ## Example - basic
