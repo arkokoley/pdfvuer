@@ -28,12 +28,12 @@
       </a>
     </div>
     <pdf :src="pdfdata" v-for="i in numPages" :key="i" :id="i" :page="i"
-      :scale.sync="scale" style="width:100%;margin:20px auto;"
-        :annotation="false"
+      v-model:scale="scale" style="width:100%;margin:auto;"
+        :annotation="true"
         :text="true"
         :resize="true"
         @link-clicked="handle_pdf_link">
-      <template slot="loading">
+      <template v-slot:loading>
         loading content here...
       </template>
     </pdf>
@@ -42,6 +42,8 @@
 
 <script>
 import pdfvuer from '../src/Pdfvuer.vue'
+
+import { createLoadingTask } from '../src/Pdfvuer.vue'
 import PdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry'
 
 PdfjsWorker
@@ -107,7 +109,7 @@ export default {
     },
     getPdf() {
       var self = this;
-      self.pdfdata = pdfvuer.createLoadingTask('https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf');
+      self.pdfdata = createLoadingTask('https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf');
       self.pdfdata.then(pdf => {
         self.numPages = pdf.numPages;
         // window.onscroll = function () {
@@ -163,4 +165,3 @@ export default {
     padding: 16px;
   }
 </style>
-<style src="../dist/pdfvuer.css"></style>
