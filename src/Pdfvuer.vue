@@ -122,6 +122,9 @@
 
       var container = this.$refs.container;
       var eventBus = new EventBus();
+      eventBus.on('pagerendered', function(e) {
+        self.$emit('pagerendered',e);
+      });      
 
       // (Optionally) enable hyperlinks within PDF files.
       self.pdfLinkService = new PDFLinkService({
