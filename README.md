@@ -2,7 +2,11 @@
 
 > A PDF viewer for Vue using Mozilla's PDF.js
 
-[![npm version](https://badge.fury.io/js/pdfvuer.svg)](https://badge.fury.io/js/pdfvuer)
+[![Awesome](https://raw.githubusercontent.com/sindresorhus/awesome/main/media/mentioned-badge.svg)](https://github.com/vuejs/awesome-vue)
+[![npm](https://img.shields.io/npm/v/pdfvuer)](https://npmjs.com/package/pdfvuer)
+[![npm](https://img.shields.io/npm/dm/pdfvuer)](https://npmjs.com/package/pdfvuer)
+[![GitHub Repo stars](https://img.shields.io/github/stars/arkokoley/pdfvuer)](https://github.com/arkokoley/pdfvuer)
+[![npm](https://img.shields.io/npm/l/pdfvuer)](https://github.com/arkokoley/pdfvuer/blob/master/LICENSE)
 
 ## Install 
 
