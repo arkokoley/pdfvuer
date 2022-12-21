@@ -39,6 +39,7 @@ export default {
     pdf
   }
 }
+</script>
 ```
 
 ## Example - Advanced
