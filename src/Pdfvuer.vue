@@ -108,7 +108,10 @@
       },
       rotate: function (newRotate) {
         if (this.pdfViewer) {
-          this.pdfViewer.update(this.scale, newRotate);
+          this.pdfViewer.update({
+            scale: this.scale,
+            rotation: newRotate,
+          });
           this.pdfViewer.draw();
         }
       },
@@ -197,7 +200,10 @@
     },
     methods: {
       calculateScale: function (width = -1, height = -1) {
-        this.pdfViewer.update(1, this.rotate); // Reset scaling to 1 so that "this.pdfViewer.viewport.width" gives proper width;
+        this.pdfViewer.update({
+          scale: 1,
+          rotation: this.rotate,
+        }); // Reset scaling to 1 so that "this.pdfViewer.viewport.width" gives proper width;
         if (width === -1 && height === -1) {
           width = this.$refs.container.offsetWidth;
         }
@@ -205,7 +211,10 @@
         return width / this.pdfViewer.viewport.width;
       },
       calculateScaleHeight: function () {
-        this.pdfViewer.update(1, this.rotate); // Reset scaling to 1 so that "this.pdfViewer.viewport.width" gives proper width;
+        this.pdfViewer.update({
+          scale: 1,
+          rotation: this.rotate,
+        }); // Reset scaling to 1 so that "this.pdfViewer.viewport.width" gives proper width;
         var height = this.$refs.container.offsetHeight;
         var parentel = this.$refs.container.parentElement.parentElement;
         return parentel.offsetHeight / height;
@@ -220,7 +229,10 @@
             newScale = this.calculateScaleHeight();
             this.$emit("update:scale", newScale);
           }
-          this.pdfViewer.update(newScale, this.rotate);
+          this.pdfViewer.update({
+            scale: newScale,
+            rotation: this.rotate,
+          });
           // The SimpleLinkService from the DefaultAnnotationLayerFactory doesn't do anything with links so override with our LinkService after it is created
           if(this.annotation) {
             this.pdfViewer.annotationLayer = this.pdfViewer.annotationLayerFactory.createAnnotationLayerBuilder(this.pdfViewer.div, this.pdfViewer.pdfPage);
