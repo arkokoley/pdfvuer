@@ -34,7 +34,7 @@
     "@rollup/plugin-node-resolve": "^8.4.0",
     "@rollup/plugin-replace": "^2.3.2",
     "@vue/cli-plugin-babel": "^4.5.6",
-    "@vue/cli-service": "^4.5.6",
+    "@vue/cli-service": "^5.0.8",
     "core-js": "3",
     "cross-env": "^7.0.2",
     "css-loader": "^4.0.0",
